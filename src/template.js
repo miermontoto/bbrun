@@ -13,13 +13,13 @@ function readTemplate(bbTemplate) {
     throw new Error(`${bbTemplate} can't be found`);
   }
 
-  const config = yaml.safeLoad(fs.readFileSync(bbTemplate, "utf8"));
+  const config = yaml.load(fs.readFileSync(bbTemplate, "utf8"), { safe: true });
   return new Template(config);
 }
 
 function parse(config) {
   assert.nonEmptyString(config);
-  const jsonConfig = yaml.safeLoad(config);
+  const jsonConfig = yaml.load(config, { safe: true });
   validate(jsonConfig);
   return jsonConfig;
 }

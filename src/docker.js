@@ -1,6 +1,7 @@
 "use strict";
-const exec = require("shelljs").exec;
-const pwd = require("shelljs").pwd;
+const shelljs = require("shelljs");
+const exec = shelljs.exec;
+const pwd = shelljs.pwd;
 const fs = require("fs");
 const child_process = require("child_process");
 const path = require('path');
@@ -78,19 +79,19 @@ function extractImageName(image) {
 }
 
 function deleteFolderSync(path) {
-    var files = [];
-    if( fs.existsSync(path) ) {
-        files = fs.readdirSync(path);
-        files.forEach(function(file,index){
-            var curPath = path + "/" + file;
-            if(fs.lstatSync(curPath).isDirectory()) { // recurse
-                deleteFolderSync(curPath);
-            } else { // delete file
-                fs.unlinkSync(curPath);
-            }
-        });
-        fs.rmdirSync(path);
-    }
+  var files = [];
+  if (fs.existsSync(path)) {
+    files = fs.readdirSync(path);
+    files.forEach(function (file, index) {
+      var curPath = path + "/" + file;
+      if (fs.lstatSync(curPath).isDirectory()) { // recurse
+        deleteFolderSync(curPath);
+      } else { // delete file
+        fs.unlinkSync(curPath);
+      }
+    });
+    fs.rmdirSync(path);
+  }
 }
 
 module.exports.checkExists = checkExists;

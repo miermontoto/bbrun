@@ -13,10 +13,10 @@ Options
     --template (-t), build template, defaults to "bitbucket-pipelines.yml"
     --pipeline (-p), pipeline to execute. "default" if not provided
     --env (-e), define environment variables for execution
-    --work-dir (-w), docker working directory, defaults to "ws"
-    --dry-run (-d), performs dry run, printing the docker command
+    --workDir (-w), docker working directory, defaults to "ws"
+    --dryRun (-d), performs dry run, printing the docker command
     --interactive (-i), starts an interactive bash session in the container
-    --ignore-folder (-if), maps the folder to an empty folder (useful for forcing package managers to reinstall)
+    --ignoreFolder (-f), maps the folder to an empty folder (useful for forcing package managers to reinstall)
     --help, prints this very guide
 
 Examples:
@@ -37,37 +37,42 @@ Examples:
     flags: {
       pipeline: {
         type: "string",
-        alias: "p"
+        shortFlag: "p"
       },
       template: {
         type: "string",
-        alias: "t"
+        shortFlag: "t"
       },
       env: {
         type: "string",
-        alias: "e"
+        shortFlag: "e"
       },
-      "work-dir": {
+      workDir: {
         type: "string",
-        alias: "w"
+        shortFlag: "w"
       },
       interactive: {
         type: "boolean",
-        alias: "i"
+        shortFlag: "i"
       },
-      "dry-run": {
+      dryRun: {
         type: "boolean",
-        alias: "d"
+        shortFlag: "d"
       },
-      "ignore-folder": {
+      ignoreFolder: {
         type: "string",
-        alias: "f"
+        shortFlag: "f"
       }
     }
   }
 );
 
 try {
+  // Map the new flag names to the old ones for backward compatibility
+  cli.flags["work-dir"] = cli.flags.workDir;
+  cli.flags["dry-run"] = cli.flags.dryRun;
+  cli.flags["ignore-folder"] = cli.flags.ignoreFolder;
+
   bbrun(cli.flags, cli.input[0]);
 } catch (error) {
   console.error(error.message);

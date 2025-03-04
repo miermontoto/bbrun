@@ -1,6 +1,8 @@
+const shelljs = require("shelljs");
+const pwd = shelljs.pwd();
+const exec = shelljs.exec;
+
 function run(name, options = "") {
-  const pwd = require("shelljs").pwd();
-  const exec = require("shelljs").exec;
   const result = exec(
     `cd ${pwd}/examples/${name} && node ../../index.js ${options}`,
     {

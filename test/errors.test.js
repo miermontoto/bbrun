@@ -1,5 +1,7 @@
+const shelljs = require("shelljs");
+const exec = shelljs.exec;
+
 function run(options) {
-  const exec = require("shelljs").exec;
   return exec(`node index.js ${options}`, {
     silent: true
   });

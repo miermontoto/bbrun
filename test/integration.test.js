@@ -1,11 +1,12 @@
+const shelljs = require("shelljs");
+const exec = shelljs.exec;
+const PWD = shelljs.pwd();
+
 function run(options) {
-  const exec = require("shelljs").exec;
   return exec(`node index.js ${options}`, {
     silent: true
   });
 }
-
-const PWD = require("shelljs").pwd();
 
 const norm = input => input.replace(new RegExp(PWD, "g"), "PWD");
 
