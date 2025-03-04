@@ -2,7 +2,7 @@
 
 `bbrun` is a command line tool to execute [Bitbucket Pipelines](https://confluence.atlassian.com/bitbucket/configure-bitbucket-pipelines-yml-792298910.html) locally.
 
-[![Build Status](https://github.com/mserranom/bbrun/workflows/Node%20CI/badge.svg)](https://github.com/mserranom/bbrun/actions?query=workflow%3A%22Node+CI%22)[![npm version](https://badge.fury.io/js/bbrun.svg)](https://badge.fury.io/js/bbrun)
+[![Build Status](https://github.com/miermontoto/bbrun/workflows/Node%20CI/badge.svg)](https://github.com/miermontoto/bbrun/actions?query=workflow%3A%22Node+CI%22)[![npm version](https://badge.fury.io/js/bbrun.svg)](https://badge.fury.io/js/bbrun)
 
 ## Install
 
@@ -34,7 +34,7 @@ running "build" in "atlassian/default-image" image...
 hello world!
 ```
 
-Check the [examples](https://github.com/mserranom/bbrun/tree/master/examples) and its [tests](https://github.com/mserranom/bbrun/blob/master/examples/examples.test.js) to learn different use cases.
+Check the [examples](https://github.com/miermontoto/bbrun/tree/master/examples) and its [tests](https://github.com/miermontoto/bbrun/blob/master/examples/examples.test.js) to learn different use cases.
 
 ### Options
 
@@ -44,10 +44,12 @@ Check the [examples](https://github.com/mserranom/bbrun/tree/master/examples) an
 
   Options
       --template (-t), pipeline template, defaults to "bitbucket-pipelines.yml"
-      --env (-e),  define environment variables for execution
-      --dry-run (-d),  performs dry run, printing the docker command
+      --pipeline (-p), pipeline to execute. "default" if not provided
+      --env (-e), define environment variables for execution
+      --workDir (-w), docker working directory, defaults to "ws"
+      --dryRun (-d), performs dry run, printing the docker command
       --interactive (-i), starts an interactive bash session in the container
-      --ignore-folder (-f), adds the folder as an empty volume (useful for forcing pipeline to install packages etc)
+      --ignoreFolder (-f), maps the folder to an empty folder (useful for forcing package managers to reinstall)
       --help, prints this very guide
 
   Examples:
@@ -67,7 +69,7 @@ Check the [examples](https://github.com/mserranom/bbrun/tree/master/examples) an
 
 ## Caveats
 
-- Not all Bitbucket features are covered, check [open issues](https://github.com/mserranom/bbrun/issues) for an overview of the roadmap.
+- Not all Bitbucket features are covered, check [open issues](https://github.com/miermontoto/bbrun/issues) for an overview of the roadmap.
 - [Private images](https://confluence.atlassian.com/bitbucket/use-docker-images-as-build-environments-792298897.html) are supported, but the user has to login in the Docker Registry before executing `bbrun` (thus credentials in the file are ignored).
 
 ## Build and Test
@@ -76,7 +78,7 @@ Check the [examples](https://github.com/mserranom/bbrun/tree/master/examples) an
 npm install && npm test
 ```
 
-To execute the tests under [examples](https://github.com/mserranom/bbrun/tree/master/examples) (which are not run by CI yet):
+To execute the tests under [examples](https://github.com/miermontoto/bbrun/tree/master/examples) (which are not run by CI yet):
 
 ```bash
 npm run test-examples
