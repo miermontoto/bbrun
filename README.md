@@ -1,8 +1,15 @@
 # bprun
+[![npm version](https://badge.fury.io/js/bprun.svg?icon=si%3Anpm)](https://badge.fury.io/js/bprun)
+
 
 `bprun` is a command line tool to execute [bitbucket pipelines](https://confluence.atlassian.com/bitbucket/configure-bitbucket-pipelines-yml-792298910.html) locally.
 
+
 this project is a fork of [bbrun](https://github.com/mserranom/bbrun).
+
+made with <3 for [okticket](https://okticket.es).
+
+<img src="https://www.grupoacms.com/galeria/sol_1ff1de774005f8da13f42943881c655f.jpg" width="100">
 
 ## usage
 
