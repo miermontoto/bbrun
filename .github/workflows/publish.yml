@@ -3,10 +3,7 @@ name: Publish Package
 on:
   push:
     branches:
-      - main
       - master
-    tags:
-      - 'v*'
 
 jobs:
   publish:
@@ -26,9 +23,15 @@ jobs:
       - name: Run tests
         run: bun test
 
-      - name: Configure npm
+      - name: Configure npm authentication
         run: |
-          echo "//registry.npmjs.org/:_authToken=\${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+          # Create .npmrc file with auth token
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+          # Set npm registry and auth token for Bun
+          bunx npm config set registry https://registry.npmjs.org/
+          bunx npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
+        env:
+          NPM_TOKEN: \${{ secrets.NPM_TOKEN }}
 
       - name: Publish package
         run: bun publish --access public
