@@ -8,7 +8,19 @@ function exec(script, image, flags) {
     "set -e",
     script
   );
-  docker.run(commands, image, flags.dryRun, flags.interactive, flags.workDir, flags.ignoreFolder);
+
+  // Create options object for docker.run
+  const runOptions = {
+    commands,
+    image,
+    dryRun: flags.dryRun,
+    interactive: flags.interactive,
+    workDir: flags.workDir,
+    ignoreFolder: flags.ignoreFolder,
+    noRoot: flags.noRoot
+  };
+
+  docker.run(runOptions);
 }
 
 module.exports.exec = exec;

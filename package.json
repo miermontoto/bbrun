@@ -1,26 +1,26 @@
 {
-  "name": "bbrun",
-  "version": "0.11.0",
-  "description": "Run your Bitbucket Pipelines locally",
+  "name": "bprun",
+  "version": "0.12.1",
+  "description": "run your bitbucket pipelines locally with bun and docker.",
   "main": "index.js",
   "preferGlobal": true,
   "bin": "./index.js",
   "scripts": {
     "prettier": "prettier --write *.js src/*.js test/*.js",
-    "test": "jest test/*.js",
-    "test-examples": "jest examples/*.js",
-    "test-all": "jest"
+    "test:unit": "jest test/*.js",
+    "test:examples": "jest examples/*.js",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/miermontoto/bbrun.git"
+    "url": "git+https://github.com/miermontoto/bprun.git"
   },
   "author": "mserranom@gmail.com",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/miermontoto/bbrun/issues"
+    "url": "https://github.com/miermontoto/bprun/issues"
   },
-  "homepage": "https://github.com/miermontoto/bbrun#readme",
+  "homepage": "https://github.com/miermontoto/bprun#readme",
   "dependencies": {
     "check-types": "^11.2.3",
     "js-yaml": "^4.1.0",
@@ -31,9 +31,5 @@
     "jest": "^29.7.0",
     "prettier": "^3.5.3"
   },
-  "pnpm": {
-    "overrides": {
-      "bbrun": "link:"
-    }
-  }
+  "packageManager": "bun@1.0.0"
 }

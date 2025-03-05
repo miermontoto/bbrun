@@ -2,12 +2,12 @@
 
 "use strict";
 const meow = require("meow");
-const bbrun = require("./src/bbrun");
+const bprun = require("./src/bprun");
 
 const cli = meow(
   `
 Usage
-  $ bbrun <step> <options>
+  $ bprun <step> <options>
 
 Options
     --template (-t), build template, defaults to "bitbucket-pipelines.yml"
@@ -17,21 +17,24 @@ Options
     --dryRun (-d), performs dry run, printing the docker command
     --interactive (-i), starts an interactive bash session in the container
     --ignoreFolder (-f), maps the folder to an empty folder (useful for forcing package managers to reinstall)
+    --noRoot (-n), run the container as non-root user (default is to run as root)
     --help, prints this very guide
 
 Examples:
   Execute all steps in the default pipeline from bitbucket-pipelines.yml
-    $ bbrun
-    $ bbrun --template bitbucket-template.yml
-    $ bbrun --pipeline default
+    $ bprun
+    $ bprun --template bitbucket-template.yml
+    $ bprun --pipeline default
   Execute a single step by its name
-    $ bbrun test
-    $ bbrun "Integration Tests"
+    $ bprun test
+    $ bprun "Integration Tests"
   Execute steps from different pipelines
-    $ bbrun test --pipeline branches:master
+    $ bprun test --pipeline branches:master
   Define an environment variable
-    $ bbrun test --env EDITOR=vim
-    $ bbrun test --env "EDITOR=vim, USER=root"
+    $ bprun test --env EDITOR=vim
+    $ bprun test --env "EDITOR=vim, USER=root"
+  Run as non-root user
+    $ bprun test --noRoot
 `,
   {
     flags: {
@@ -62,6 +65,10 @@ Examples:
       ignoreFolder: {
         type: "string",
         shortFlag: "f"
+      },
+      noRoot: {
+        type: "boolean",
+        shortFlag: "n"
       }
     }
   }
@@ -72,8 +79,9 @@ try {
   cli.flags["work-dir"] = cli.flags.workDir;
   cli.flags["dry-run"] = cli.flags.dryRun;
   cli.flags["ignore-folder"] = cli.flags.ignoreFolder;
+  cli.flags["no-root"] = cli.flags.noRoot;
 
-  bbrun(cli.flags, cli.input[0]);
+  bprun(cli.flags, cli.input[0]);
 } catch (error) {
   console.error(error.message);
   process.exit(1);

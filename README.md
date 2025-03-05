@@ -1,20 +1,12 @@
-# Bitbucket Pipelines Runner
+# bprun
 
-`bbrun` is a command line tool to execute [Bitbucket Pipelines](https://confluence.atlassian.com/bitbucket/configure-bitbucket-pipelines-yml-792298910.html) locally.
+`bprun` is a command line tool to execute [bitbucket pipelines](https://confluence.atlassian.com/bitbucket/configure-bitbucket-pipelines-yml-792298910.html) locally.
 
-[![Build Status](https://github.com/miermontoto/bbrun/workflows/Node%20CI/badge.svg)](https://github.com/miermontoto/bbrun/actions?query=workflow%3A%22Node+CI%22)[![npm version](https://badge.fury.io/js/bbrun.svg)](https://badge.fury.io/js/bbrun)
+this project is a fork of [bbrun](https://github.com/mserranom/bbrun).
 
-## Install
+## usage
 
-Install `bbrun` with `npm`:
-
-```bash
-$ npm install -g bbrun
-```
-
-## Usage
-
-`bbrun` can execute any step defined in your `bitbucket-pipelines.yml` template:
+`bprun` can execute any step defined in your `bitbucket-pipelines.yml` template:
 
 ```yaml
 pipelines:
@@ -26,66 +18,45 @@ pipelines:
             - echo "hello world!"
 ```
 
-Run `bbrun` straight from your project path:
+run `bprun` using `bunx`:
 
 ```bash
-$ bbrun hello
-running "build" in "atlassian/default-image" image...
-hello world!
+bunx bprun hello
 ```
 
-Check the [examples](https://github.com/miermontoto/bbrun/tree/master/examples) and its [tests](https://github.com/miermontoto/bbrun/blob/master/examples/examples.test.js) to learn different use cases.
+Check the [examples](https://github.com/miermontoto/bprun/tree/master/examples) and its [tests](https://github.com/miermontoto/bprun/blob/master/examples/examples.test.js) to learn different use cases.
 
-### Options
+### flags
 
 ```
-  Usage
-    $ bbrun <step> <options>
+usage
+  $ bprun <step> <options>
 
-  Options
-      --template (-t), pipeline template, defaults to "bitbucket-pipelines.yml"
-      --pipeline (-p), pipeline to execute. "default" if not provided
-      --env (-e), define environment variables for execution
-      --workDir (-w), docker working directory, defaults to "ws"
-      --dryRun (-d), performs dry run, printing the docker command
-      --interactive (-i), starts an interactive bash session in the container
-      --ignoreFolder (-f), maps the folder to an empty folder (useful for forcing package managers to reinstall)
-      --help, prints this very guide
-
-  Examples:
-    Execute all steps in the default pipeline from bitbucket-pipelines.yml
-      $ bbrun
-      $ bbrun --template bitbucket-template.yml
-      $ bbrun --pipeline default
-    Execute a single step by its name
-      $ bbrun test
-      $ bbrun "Integration Tests"
-    Execute steps from different pipelines
-      $ bbrun test --pipeline branches:master
-    Define an environment variable
-      $ bbrun test --env EDITOR=vim
-      $ bbrun test --env "EDITOR=vim, USER=root"
+options
+  --template (-t)    pipeline template, defaults to "bitbucket-pipelines.yml"
+  --pipeline (-p)    pipeline to execute, "default" if not provided
+  --env (-e)         define environment variables for execution
+  --workDir (-w)     docker working directory, defaults to "ws"
+  --dryRun (-d)      performs dry run, printing the docker command
+  --interactive (-i) starts an interactive bash session in the container
+  --ignoreFolder (-f) maps the folder to an empty folder
+  --noRoot (-n)      run the container as non-root user (default is to run as root)
+  --help             prints this guide
 ```
 
-## Caveats
-
-- Not all Bitbucket features are covered, check [open issues](https://github.com/miermontoto/bbrun/issues) for an overview of the roadmap.
-- [Private images](https://confluence.atlassian.com/bitbucket/use-docker-images-as-build-environments-792298897.html) are supported, but the user has to login in the Docker Registry before executing `bbrun` (thus credentials in the file are ignored).
-
-## Build and Test
+## development
 
 ```bash
-npm install && npm test
-```
+# clone the repo
+git clone https://github.com/miermontoto/bprun
+cd bprun
 
-To execute the tests under [examples](https://github.com/miermontoto/bbrun/tree/master/examples) (which are not run by CI yet):
+# install dependencies
+bun install
 
-```bash
-npm run test-examples
-```
+# run tests
+bun run test
 
-### Install locally
-
-```bash
-$ npm install && npm link
+# link for local development
+bun link
 ```
